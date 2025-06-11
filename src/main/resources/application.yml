@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: codify-backend
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/codify
+    username: codify_user
+    password: dev123
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: ${KAKAO_CLIENT_ID:your-kakao-client-id}
+            client-secret: ${KAKAO_CLIENT_SECRET:your-kakao-client-secret}
+            redirect-uri: http://localhost:8080/oauth2/callback/kakao
+            authorization-grant-type: authorization_code
+            scope: profile_nickname, profile_image, account_email
+
+server:
+  port: 8080
+
+logging:
+  level:
+    com.codify: DEBUG
+    org.springframework.security: DEBUG
