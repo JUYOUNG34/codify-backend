@@ -1,6 +1,7 @@
 package com.codify.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Check;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.ZonedDateTime;
