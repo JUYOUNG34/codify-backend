@@ -3,7 +3,7 @@ spring:
     name: codify-backend
 
   datasource:
-    url: jdbc:postgresql://localhost:5433/codify
+    url: jdbc:postgresql://localhost:5432/codify
     username: codify_user
     password: dev123
     driver-class-name: org.postgresql.Driver

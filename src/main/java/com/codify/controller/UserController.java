@@ -58,8 +58,8 @@ public class UserController {
 
     @GetMapping("/tech-stack/{techStack}")
     public ResponseEntity<List<User>> getUserByTechStack(@PathVariable String techStack) {
-        List<User> user = userRepository.findByTechStack(techStack);
-        return ResponseEntity.ok(user);
+        List<User> users = userRepository.findByTechStack(techStack);
+        return ResponseEntity.ok(users);
     }
 
     @PostMapping

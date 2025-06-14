@@ -23,12 +23,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByIsActiveTrue();
     List<User> findByEmailVerifiedTrue();
 
-    @Query("SELECT u From User u where u.nickname like %:keyword% or u.bio like %:keyword%")
+    @Query("SELECT u FROM User u WHERE u.nickname LIKE %:keyword% OR u.bio LIKE %:keyword%")
     List<User> searchByKeyword(@Param("keyword") String keyword);
 
     List<User> findByCareerLevel(@Param("careerLevel") String careerLevel);
 
-    @Query("SELECT u From User u where :techStack = any(u.techStacks)")
-
-    List<User> findByTechStack(@Param("techStacks") String techStacks);
+    @Query(value = "SELECT * FROM users u WHERE :techStack = ANY(u.tech_stacks)", nativeQuery = true)
+    List<User> findByTechStack(@Param("techStack") String techStack);
 }
