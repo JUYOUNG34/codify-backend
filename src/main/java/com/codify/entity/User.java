@@ -1,5 +1,6 @@
 package com.codify.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -7,10 +8,10 @@ import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.ZonedDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "users")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})  // 이 줄 추가
 public class User {
 
     @Id
@@ -66,10 +67,6 @@ public class User {
     @Column(name = "created_at", nullable = false, updatable = false)
     private ZonedDateTime createdAt;
 
-    // == 연관관계 매핑 (나중에 추가) ==
-    // @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
-    // private List<GroupMessage> sentMessages;
-
     public User() {}
 
     public User(String email, String nickname, String passwordHash) {
@@ -85,6 +82,7 @@ public class User {
         this.oauthId = oauthId;
     }
 
+    // getters and setters (기존과 동일)
     public Long getUserId() {
         return userId;
     }

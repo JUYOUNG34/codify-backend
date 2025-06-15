@@ -1,5 +1,7 @@
 package com.codify.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -10,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "chat_rooms")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})  // 이 줄 추가
 public class ChatRoom {
 
     @Id
@@ -53,9 +56,11 @@ public class ChatRoom {
     @Column(name = "created_at", nullable = false, updatable = false)
     private ZonedDateTime createdAt;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ChatParticipant> participants;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<GroupMessage> messages;
 
@@ -74,6 +79,7 @@ public class ChatRoom {
         this.createdBy = createdBy;
     }
 
+    // getters and setters (기존과 동일)
     public Long getRoomId() {
         return roomId;
     }

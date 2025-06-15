@@ -27,7 +27,7 @@ spring:
             redirect-uri: http://localhost:8080/oauth2/callback/kakao
             authorization-grant-type: authorization_code
             scope: profile_nickname, profile_image, account_email
-        provider:  # 이 부분 추가!
+        provider:
           kakao:
             authorization-uri: https://kauth.kakao.com/oauth/authorize
             token-uri: https://kauth.kakao.com/oauth/token

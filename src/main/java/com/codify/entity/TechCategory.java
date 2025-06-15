@@ -1,7 +1,9 @@
 package com.codify.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -22,7 +24,7 @@ public class TechCategory {
     @Column(name = "category_name", unique = true, nullable = false)
     private String categoryName;
 
-    @NotBlank
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "category_type", nullable = false)
     private CategoryType categoryType;
@@ -37,9 +39,11 @@ public class TechCategory {
     @Column(name = "created_at", nullable = false, updatable = false)
     private ZonedDateTime createdAt;
 
+    @JsonIgnore  // 순환 참조 방지
     @OneToMany(mappedBy = "techCategory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ChatRoom> chatRooms;
 
+    @JsonIgnore  // 순환 참조 방지
     @OneToMany(mappedBy = "techCategory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<AiInterviewQuestion> interviewQuestions;
 
@@ -56,6 +60,7 @@ public class TechCategory {
         this.githubTopicName = githubTopicName;
     }
 
+    // getters and setters
     public Long getCategoryId() {
         return categoryId;
     }
